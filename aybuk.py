@@ -722,12 +722,7 @@ def select_best_model(
 
     )
 
-    return best_model
-
-
-
-
-    
+    return best_model  
 
 with tab2:
 
@@ -1284,8 +1279,8 @@ with tab4:
 
        fig = px.line(forecast_series,x="Date",y=["Actual","Forecast"])
 best_model = st.session_state["best_model"]
-Forecast Winner:
-{best_model}
+print("Forecast Winner:"
+{best_model})
 
         st.plotly_chart(
             fig,
