@@ -1282,15 +1282,7 @@ with tab4:
 
        forecast_series = st.session_state["forecast_series"]
 
-        fig = px.line(
-
-    forecast_series,
-
-    x="Date",
-
-    y=["Actual","Forecast"]
-
-)
+       fig = px.line(forecast_series,x="Date",y=["Actual","Forecast"])
 best_model = st.session_state["best_model"]
 Forecast Winner:
 {best_model}
