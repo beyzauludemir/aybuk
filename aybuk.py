@@ -1151,23 +1151,20 @@ with tab3:
             "forecast_series"
         ]
 
- avg_daily_demand = (
-    forecast_series["Forecast"]
-    .mean()
-)
-
-        annual_demand = (
-
-            avg_daily_demand
-            *
-            365
-
+        avg_daily_demand = (
+            forecast_series["Forecast"]
+            .mean()
         )
 
-       std_demand = (
-    forecast_series["Forecast"]
-    .std()
-)
+        annual_demand = (
+            avg_daily_demand
+            * 365
+        )
+
+        std_demand = (
+            forecast_series["Forecast"]
+            .std()
+        )
 
         lead_time = DEFAULT_LEAD_TIME
 
