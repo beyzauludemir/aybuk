@@ -857,14 +857,14 @@ with tab2:
         st.session_state["forecast_series"] = forecast_series
         
         
-         min_len = min(
+        min_len = min(
     len(test),
     len(sarima_pred),
     len(xgb_pred),
     len(cat_pred)
 )
 
-        comparison = pd.DataFrame({
+       comparison = pd.DataFrame({
 
     "Date": test["date"].iloc[:min_len].values,
 
