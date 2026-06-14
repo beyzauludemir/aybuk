@@ -803,8 +803,8 @@ with tab2:
         )
 
         best_model = select_best_model(
-            metrics
-        )
+    metrics
+)
 
         forecast_series = build_best_model_series(
         
@@ -820,29 +820,60 @@ with tab2:
         
         )
         
-        st.session_state[
-            "forecast_series"
-        ] = forecast_series
+        st.session_state["forecast_series"] = forecast_series
+        
+        
         comparison = pd.DataFrame({
         
-            "Date":
-            test["date"],
+            "Date": test["date"],
         
-            "Actual":
-            test[VALUE_COL],
+            "Actual": test[VALUE_COL],
         
-            "SARIMA":
-            sarima_pred,
+            "SARIMA": sarima_pred,
         
-            "XGBoost":
-            xgb_pred,
+            "XGBoost": xgb_pred,
         
-            "CatBoost":
-            cat_pred
+            "CatBoost": cat_pred
         
         })
-
-
+        fig = go.Figure()
+        
+        fig.add_trace(
+            go.Scatter(
+                x=comparison["Date"],
+                y=comparison["Actual"],
+                name="Actual"
+            )
+        )
+        
+        fig.add_trace(
+            go.Scatter(
+                x=comparison["Date"],
+                y=comparison["SARIMA"],
+                name="SARIMA"
+            )
+        )
+        
+        fig.add_trace(
+            go.Scatter(
+                x=comparison["Date"],
+                y=comparison["XGBoost"],
+                name="XGBoost"
+            )
+        )
+        
+        fig.add_trace(
+            go.Scatter(
+                x=comparison["Date"],
+                y=comparison["CatBoost"],
+                name="CatBoost"
+            )
+        )
+        
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
         st.success(
             f"Best Model: {best_model}"
         )
