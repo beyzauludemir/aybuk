@@ -857,19 +857,26 @@ with tab2:
         st.session_state["forecast_series"] = forecast_series
         
         
+         min_len = min(
+    len(test),
+    len(sarima_pred),
+    len(xgb_pred),
+    len(cat_pred)
+)
+
         comparison = pd.DataFrame({
-        
-            "Date": test["date"],
-        
-            "Actual": test[VALUE_COL],
-        
-            "SARIMA": sarima_pred,
-        
-            "XGBoost": xgb_pred,
-        
-            "CatBoost": cat_pred
-        
-        })
+
+    "Date": test["date"].iloc[:min_len].values,
+
+    "Actual": test[VALUE_COL].iloc[:min_len].values,
+
+    "SARIMA": np.array(sarima_pred)[:min_len],
+
+    "XGBoost": np.array(xgb_pred)[:min_len],
+
+    "CatBoost": np.array(cat_pred)[:min_len]
+
+})
         fig = go.Figure()
         
         fig.add_trace(
