@@ -556,29 +556,47 @@ def sarima_forecast(
         test
 ):
 
-    model = SARIMAX(
-
-        train[VALUE_COL],
-
-        order=DEFAULT_ORDER,
-
-        seasonal_order=DEFAULT_SORDER,
-
-        enforce_stationarity=False,
-
-        enforce_invertibility=False
-
+    history = list(
+        train[VALUE_COL].values
     )
 
-    result = model.fit(
-        disp=False
-    )
+    predictions = []
 
-    pred = result.forecast(
-        len(test)
-    )
+    for actual in test[VALUE_COL]:
 
-    return pred
+        model = SARIMAX(
+
+            history,
+
+            order=DEFAULT_ORDER,
+
+            seasonal_order=DEFAULT_SORDER,
+
+            enforce_stationarity=False,
+
+            enforce_invertibility=False
+
+        )
+
+        result = model.fit(
+            disp=False
+        )
+
+        yhat = result.forecast(
+            steps=1
+        )[0]
+
+        predictions.append(
+            yhat
+        )
+
+        history.append(
+            actual
+        )
+
+    return np.array(
+        predictions
+    )
 
 # ============================================================
 # XGBOOST
