@@ -1103,7 +1103,29 @@ def calculate_inventory_cost(
         total_cost
 
     }
-forecast_series = st.session_state["forecast_series"]
+if "forecast_series" in st.session_state:
+
+    forecast_series = st.session_state["forecast_series"]
+
+    avg_daily_demand = (
+        forecast_series["Forecast"]
+        .mean()
+    )
+
+    std_demand = (
+        forecast_series["Forecast"]
+        .std()
+    )
+
+    annual_demand = (
+        avg_daily_demand * 365
+    )
+
+else:
+
+    st.warning(
+        "Please run demand forecasting first."
+    )
 
 with tab3:
 
