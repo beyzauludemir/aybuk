@@ -836,35 +836,16 @@ with tab2:
             use_container_width=True
         )
 
-        best_model = select_best_model(
-    metrics
-)
+        best_model = select_best_model(metrics)
 
-        forecast_series = build_best_model_series(
-        
-            test,
-        
-            best_model,
-        
-            sarima_pred,
-        
-            xgb_pred,
-        
-            cat_pred
-        
-        )
+        forecast_series = build_best_model_series(test,best_model,sarima_pred,xgb_pred,cat_pred)
         
         st.session_state["forecast_series"] = forecast_series
         
         
-        min_len = min(
-    len(test),
-    len(sarima_pred),
-    len(xgb_pred),
-    len(cat_pred)
-)
+        min_len = min(len(test),len(sarima_pred),len(xgb_pred),len(cat_pred))
 
-       comparison = pd.DataFrame({
+        comparison = pd.DataFrame({
 
     "Date": test["date"].iloc[:min_len].values,
 
