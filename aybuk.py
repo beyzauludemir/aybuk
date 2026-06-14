@@ -1275,16 +1275,31 @@ with tab4:
 
     if "forecast_series" in st.session_state:
 
-       forecast_series = st.session_state["forecast_series"]
+        forecast_series = st.session_state[
+            "forecast_series"
+        ]
 
-       fig = px.line(forecast_series,x="Date",y=["Actual","Forecast"])
-best_model = st.session_state["best_model"]
-
+        fig = px.line(
+            forecast_series,
+            x="Date",
+            y=["Actual", "Forecast"],
+            title="Actual vs Forecast"
+        )
 
         st.plotly_chart(
             fig,
             use_container_width=True
         )
+
+        if "best_model" in st.session_state:
+
+            best_model = st.session_state[
+                "best_model"
+            ]
+
+            st.info(
+                f"Best Model Selected: {best_model}"
+            )
 
 with tab5:
 
