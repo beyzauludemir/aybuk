@@ -917,68 +917,10 @@ def build_best_model_series(
 
     return forecast_series
 
-fig = go.Figure()
 
-fig.add_trace(
 
-    go.Scatter(
 
-        x=comparison["Date"],
 
-        y=comparison["Actual"],
-
-        name="Actual"
-
-    )
-
-)
-
-fig.add_trace(
-
-    go.Scatter(
-
-        x=comparison["Date"],
-
-        y=comparison["SARIMA"],
-
-        name="SARIMA"
-
-    )
-
-)
-
-fig.add_trace(
-
-    go.Scatter(
-
-        x=comparison["Date"],
-
-        y=comparison["XGBoost"],
-
-        name="XGBoost"
-
-    )
-
-)
-
-fig.add_trace(
-
-    go.Scatter(
-
-        x=comparison["Date"],
-
-        y=comparison["CatBoost"],
-
-        name="CatBoost"
-
-    )
-
-)
-
-st.plotly_chart(
-    fig,
-    use_container_width=True
-)
 # ============================================================
 # INVENTORY CONFIG
 # ============================================================
