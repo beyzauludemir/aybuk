@@ -6,4 +6,5 @@ scipy
 statsmodels
 xgboost
 catboost
+scikit-learn
 openpyxl
