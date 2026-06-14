@@ -806,6 +806,43 @@ with tab2:
             metrics
         )
 
+        forecast_series = build_best_model_series(
+        
+            test,
+        
+            best_model,
+        
+            sarima_pred,
+        
+            xgb_pred,
+        
+            cat_pred
+        
+        )
+        
+        st.session_state[
+            "forecast_series"
+        ] = forecast_series
+        comparison = pd.DataFrame({
+        
+            "Date":
+            test["date"],
+        
+            "Actual":
+            test[VALUE_COL],
+        
+            "SARIMA":
+            sarima_pred,
+        
+            "XGBoost":
+            xgb_pred,
+        
+            "CatBoost":
+            cat_pred
+        
+        })
+
+
         st.success(
             f"Best Model: {best_model}"
         )
@@ -839,54 +876,15 @@ def build_best_model_series(
 
     forecast_series = pd.DataFrame({
 
-        "Date":
-        test["date"].values,
+        "Date": test["date"].values,
 
-        "Forecast":
-        demand,
+        "Forecast": demand,
 
-        "Actual":
-        test[VALUE_COL].values
+        "Actual": test[VALUE_COL].values
 
     })
 
     return forecast_series
-
-forecast_series = build_best_model_series(
-
-    test,
-
-    best_model,
-
-    sarima_pred,
-
-    xgb_pred,
-
-    cat_pred
-
-)
-
-st.session_state[
-    "forecast_series"
-] = forecast_series
-comparison = pd.DataFrame({
-
-    "Date":
-    test["date"],
-
-    "Actual":
-    test[VALUE_COL],
-
-    "SARIMA":
-    sarima_pred,
-
-    "XGBoost":
-    xgb_pred,
-
-    "CatBoost":
-    cat_pred
-
-})
 
 fig = go.Figure()
 
