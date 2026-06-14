@@ -1279,8 +1279,7 @@ with tab4:
 
        fig = px.line(forecast_series,x="Date",y=["Actual","Forecast"])
 best_model = st.session_state["best_model"]
-print("Forecast Winner:"
-{best_model})
+
 
         st.plotly_chart(
             fig,
