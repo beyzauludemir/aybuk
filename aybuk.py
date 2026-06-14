@@ -695,7 +695,41 @@ def cat_forecast(
         )
 
     return np.array(preds)
+# ============================================================
+# BUILD FORECAST DEMAND SERIES
+# ============================================================
 
+def build_best_model_series(
+        test,
+        best_model,
+        sarima_pred,
+        xgb_pred,
+        cat_pred
+):
+
+    if best_model == "SARIMA":
+
+        demand = sarima_pred
+
+    elif best_model == "XGBoost":
+
+        demand = xgb_pred
+
+    else:
+
+        demand = cat_pred
+
+    forecast_series = pd.DataFrame({
+
+        "Date": test["date"].values,
+
+        "Forecast": demand,
+
+        "Actual": test[VALUE_COL].values
+
+    })
+
+    return forecast_series
 # ============================================================
 # BEST MODEL
 # ============================================================
@@ -881,41 +915,7 @@ with tab2:
         st.session_state[
             "best_model"
         ] = best_model
-# ============================================================
-# BUILD FORECAST DEMAND SERIES
-# ============================================================
 
-def build_best_model_series(
-        test,
-        best_model,
-        sarima_pred,
-        xgb_pred,
-        cat_pred
-):
-
-    if best_model == "SARIMA":
-
-        demand = sarima_pred
-
-    elif best_model == "XGBoost":
-
-        demand = xgb_pred
-
-    else:
-
-        demand = cat_pred
-
-    forecast_series = pd.DataFrame({
-
-        "Date": test["date"].values,
-
-        "Forecast": demand,
-
-        "Actual": test[VALUE_COL].values
-
-    })
-
-    return forecast_series
 
 
 
